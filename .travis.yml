@@ -1,0 +1,36 @@
+language: cpp
+dist: bionic
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - p7zip-full
+      - gcc-9
+      - g++-9
+  
+install:
+  - export CXX="g++-9" CC="gcc-9"
+  - cmake --version
+  - cd $HOME
+  - curl -LJO https://github.com/g-truc/glm/releases/download/0.9.9.8/glm-0.9.9.8.zip
+  - 7z x glm-0.9.9.8.zip
+  - dir
+  - git clone https://github.com/Silverlan/mathutil.git
+  - cd mathutil
+  - git checkout 8fba0eba48cdc3c37a07e7af4a992af5a5b28383
+  - mkdir build
+  - cd build
+  - cmake .. -DDEPENDENCY_GLM_INCLUDE=${HOME}/glm -DMATHUTIL_ENABLE_MESH_FUNCTIONS=OFF -DDEPENDENCY_SHAREDUTILS_INCLUDE=${TRAVIS_BUILD_DIR}/include/ -DMATHUTIL_STATIC=TRUE
+  - make
+  - ls
+
+
+script:
+  - cd ${TRAVIS_BUILD_DIR}
+  - mkdir build
+  - cd build
+  - cmake .. -DDEPENDENCY_GLM_INCLUDE=${HOME}/glm -DDEPENDENCY_MATHUTIL_INCLUDE=${HOME}/mathutil/include -DDEPENDENCY_MATHUTIL_LIBRARY=${HOME}/mathutil/build/libmathutil.a
+  - make
+  - ls

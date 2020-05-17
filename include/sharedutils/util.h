@@ -20,9 +20,10 @@
 #else
 #include <ios>
 #include <sstream>
+#include <thread>
 #endif
 
-namespace std {class thread;};
+//namespace std {class thread;};
 namespace util
 {
 	using GUID = std::array<uint8_t,16>;

@@ -18,7 +18,7 @@
 	#include <glob.h>
 	#include <stdlib.h>
 	#include <string.h>
-	#include <pthread>
+	//#include <pthread.h>
 	#include <stdio.h>
 	#include <dlfcn.h>
 #else
@@ -31,6 +31,8 @@
 	#include <thread>
 	#include <Shlobj_core.h>
 #endif
+
+#include <thread>
 
 #pragma comment(lib,"mathutil.lib")
 
